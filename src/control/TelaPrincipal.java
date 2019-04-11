@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.multiscrap.telas;
+package control;
 
 import java.awt.Color;
 import java.text.DateFormat;
@@ -28,6 +28,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         getContentPane().setBackground(Color.WHITE);
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -54,6 +55,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuClientesPes = new javax.swing.JMenuItem();
         MenuEnc = new javax.swing.JMenu();
         MenuEncCad = new javax.swing.JMenuItem();
+        MenuEncAltDel = new javax.swing.JMenuItem();
         MenuEncVis = new javax.swing.JMenuItem();
         MenuUsers = new javax.swing.JMenu();
         MenuUsersAlt = new javax.swing.JMenuItem();
@@ -61,13 +63,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuCadProdutos = new javax.swing.JMenuItem();
         MenuOpt = new javax.swing.JMenu();
         MenuOptSair = new javax.swing.JMenuItem();
-        MenuAjuda = new javax.swing.JMenu();
-        MenuAjudaSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Multiscrap Papelaria Personalizada");
         setBackground(new java.awt.Color(252, 252, 252));
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -78,11 +77,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 751, Short.MAX_VALUE)
+            .addGap(0, 1078, Short.MAX_VALUE)
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 750, Short.MAX_VALUE)
         );
 
         lblData.setFont(new java.awt.Font("Segoe Script", 2, 24)); // NOI18N
@@ -129,6 +128,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         MenuEnc.add(MenuEncCad);
+
+        MenuEncAltDel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        MenuEncAltDel.setText("Alterar/Excluir");
+        MenuEncAltDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEncAltDelActionPerformed(evt);
+            }
+        });
+        MenuEnc.add(MenuEncAltDel);
 
         MenuEncVis.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         MenuEncVis.setText("Visualizar");
@@ -180,19 +188,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         Menu.add(MenuOpt);
 
-        MenuAjuda.setText("Ajuda");
-
-        MenuAjudaSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        MenuAjudaSobre.setText("Sobre");
-        MenuAjudaSobre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuAjudaSobreActionPerformed(evt);
-            }
-        });
-        MenuAjuda.add(MenuAjudaSobre);
-
-        Menu.add(MenuAjuda);
-
         setJMenuBar(Menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,26 +196,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(lblData)))
-                .addContainerGap())
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Desktop)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addGap(201, 201, 201)
                 .addComponent(lblData)
                 .addGap(72, 72, 72)
                 .addComponent(jLabel3)
-                .addContainerGap(173, Short.MAX_VALUE))
-            .addComponent(Desktop)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1037, 617));
+        setSize(new java.awt.Dimension(1401, 808));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -238,12 +233,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_MenuOptSairActionPerformed
-
-    private void MenuAjudaSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAjudaSobreActionPerformed
-        //chamando a tela sobre
-        TelaSobre sobre = new TelaSobre();
-        sobre.setVisible(true);
-    }//GEN-LAST:event_MenuAjudaSobreActionPerformed
 
     private void MenuUsersAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuUsersAltActionPerformed
         //Tela usuário
@@ -288,6 +277,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Desktop.add(pr);
     }//GEN-LAST:event_MenuCadProdutosActionPerformed
 
+    private void MenuEncAltDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEncAltDelActionPerformed
+        TelaAlterarEnc tae = new TelaAlterarEnc();
+        tae.setVisible(true);
+        Desktop.add(tae);
+    }//GEN-LAST:event_MenuEncAltDelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -326,13 +321,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
     private javax.swing.JMenuBar Menu;
-    private javax.swing.JMenu MenuAjuda;
-    private javax.swing.JMenuItem MenuAjudaSobre;
     private javax.swing.JMenuItem MenuCadProdutos;
     private javax.swing.JMenu MenuClientes;
     private javax.swing.JMenuItem MenuClientesCad;
     private javax.swing.JMenuItem MenuClientesPes;
     private javax.swing.JMenu MenuEnc;
+    private javax.swing.JMenuItem MenuEncAltDel;
     private javax.swing.JMenuItem MenuEncCad;
     private javax.swing.JMenuItem MenuEncVis;
     private javax.swing.JMenu MenuOpt;

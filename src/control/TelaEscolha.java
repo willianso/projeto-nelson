@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.multiscrap.telas;
+package control;
 import java.sql.*;
-import br.com.multiscrap.dal.ModuloConexao;
+import conexao.ModuloConexao;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -22,6 +22,15 @@ public class TelaEscolha extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     float total = 0;
+    String numeroEnc;
+
+    public String getNumeroEnc() {
+        return numeroEnc;
+    }
+
+    public void setNumeroEnc(String numeroEnc) {
+        this.numeroEnc = numeroEnc;
+    }
     /**
      * Creates new form TelaEscolha
      */
@@ -49,16 +58,7 @@ public class TelaEscolha extends javax.swing.JFrame {
         txtProduto.setText(tblPesquisa.getModel().getValueAt(setar,1).toString());
         txtValorItem.setText(tblPesquisa.getModel().getValueAt(setar,2).toString());
         String sql = "select max(numero) as max_numero from encomendas";
-        try {
-            pst = conexao.prepareStatement(sql);
-            rs = pst.executeQuery();
-            if(rs.next()){
-                txtNumero.setText(rs.getString("max_numero"));
-            }
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e); 
-        }
+        txtNumero.setText(numeroEnc);
     }
             
     

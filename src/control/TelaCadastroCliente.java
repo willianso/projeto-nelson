@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.multiscrap.telas;
+package control;
 
 /**
  *
@@ -11,7 +11,7 @@ package br.com.multiscrap.telas;
  */
 
 import java.sql.*;
-import br.com.multiscrap.dal.ModuloConexao;
+import conexao.ModuloConexao;
 import javax.swing.JOptionPane;
 
 public class TelaCadastroCliente extends javax.swing.JInternalFrame {
@@ -78,7 +78,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         txtEndereco = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JTextField();
         try{ 
-            javax.swing.text.MaskFormatter tel= new javax.swing.text.MaskFormatter("(##)####-####");
+            javax.swing.text.MaskFormatter tel= new javax.swing.text.MaskFormatter("(##)#####-####");
             txtTelefone = new javax.swing.JFormattedTextField(tel);
         }
         catch (Exception e){
@@ -95,7 +95,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         txtCidade = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
-        btnCadastro = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -115,10 +115,10 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Estado");
 
-        btnCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/multiscrap/icones/adicionar.png"))); // NOI18N
-        btnCadastro.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/multiscrap/icones/addPessoa.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastroActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -127,9 +127,8 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
+                .addGap(306, 306, 306)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCadastro)
                     .addComponent(jLabel1)
                     .addComponent(jLabel5)
                     .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,13 +147,14 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                         .addComponent(txtNome)
                         .addComponent(txtEmail)
                         .addComponent(txtEndereco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(149, Short.MAX_VALUE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(307, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(79, 79, 79)
                 .addComponent(jLabel1)
                 .addGap(10, 10, 10)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,21 +182,21 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addGap(10, 10, 10)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(btnCadastro)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(111, 111, 111))
         );
 
-        setBounds(0, 0, 751, 567);
+        setBounds(0, 0, 1079, 688);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         adicionar();
-    }//GEN-LAST:event_btnCadastroActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastro;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
