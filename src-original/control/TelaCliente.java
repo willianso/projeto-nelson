@@ -189,7 +189,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nome");
 
-        jLabel3.setText("Endereço");
+        jLabel3.setText("Endereco");
 
         jLabel4.setText("Cidade");
 

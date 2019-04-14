@@ -269,7 +269,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
+        <Property name="text" type="java.lang.String" value="Endereco"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEndereco">

@@ -42,17 +42,17 @@ public class TelaAlterarEnc extends javax.swing.JInternalFrame {
     private void pesquisar(){
         float soma = 0;
         String numero = txtNumero.getText();
-        String sql = "select * from encomendas where numero=?"; 
-        String sql2 = "select produto as Produto, quantidade as Quantidade, total_item as Total from itens_venda where numero=?";
-        
+        String sql = "select * from encomendas where numero=" + numero; 
+        String sql2 = "select produto as Produto, quantidade as Quantidade from itens_venda where numero="+numero;
+        System.out.println(txtNumeroEnc.getText());
         try {
             pst = conexao.prepareStatement(sql2);
-            pst.setString(1, txtNumero.getText());
             rs = pst.executeQuery();
-            tblProdutos.setModel(DbUtils.resultSetToTableModel(rs));
+            if(rs.next()){
+                tblProdutos.setModel(DbUtils.resultSetToTableModel(rs));
+            }
             
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtNumero.getText());
             rs = pst.executeQuery();
             if(rs.next()){
                 txtNumeroEnc.setText(rs.getString(1));
@@ -60,7 +60,6 @@ public class TelaAlterarEnc extends javax.swing.JInternalFrame {
                 soma = rs.getFloat(5);                
                 txtValorTotal.setText(String.valueOf(soma));
                 txtDataEntrega.setText(rs.getString(4));
-                txtID.setText(rs.getString(7));
                 String rbtSituacao = rs.getString(6);
                 if(rbtSituacao.equals("Não entregue")){
                     btnPendente.setSelected(true);
@@ -131,22 +130,7 @@ public class TelaAlterarEnc extends javax.swing.JInternalFrame {
         }
     }
     
-    private void soma(){
-        float soma = 0;   
-        String sql = "select sum(total_item) from itens_venda where numero=?";
-        try{
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1,txtNumero.getText());
-            rs = pst.executeQuery();            
-            if (rs.next()){
-                soma = rs.getFloat(1);
-            }
-            txtValorTotal.setText(String.valueOf(soma));
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -189,7 +173,6 @@ public class TelaAlterarEnc extends javax.swing.JInternalFrame {
         txtValorTotal = new javax.swing.JTextField();
         btnAltEnc = new javax.swing.JButton();
         btnApagarEnc = new javax.swing.JButton();
-        btnAtualiza = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -253,12 +236,10 @@ public class TelaAlterarEnc extends javax.swing.JInternalFrame {
         jLabel3.setText("Número");
 
         txtNumeroEnc.setEditable(false);
-        txtNumeroEnc.setEnabled(false);
 
         jLabel6.setText("ID");
 
         txtID.setEditable(false);
-        txtID.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -370,13 +351,6 @@ public class TelaAlterarEnc extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAtualiza.setText("Atualizar");
-        btnAtualiza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -386,8 +360,6 @@ public class TelaAlterarEnc extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAddProd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAtualiza)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -437,16 +409,14 @@ public class TelaAlterarEnc extends javax.swing.JInternalFrame {
                                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnPesquisar))))
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddProd)
-                    .addComponent(btnAtualiza))
+                .addComponent(btnAddProd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAltEnc)
                         .addComponent(btnApagarEnc))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -484,26 +454,11 @@ public class TelaAlterarEnc extends javax.swing.JInternalFrame {
        escolha.setVisible(true);  
     }//GEN-LAST:event_btnAddProdActionPerformed
 
-    private void btnAtualizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizaActionPerformed
-        soma();
-        String sql = "select produto as Produto, quantidade as Quantidade, total_item as Total from itens_venda where numero=?";
-        try{
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtNumero.getText());
-            rs = pst.executeQuery();
-            tblProdutos.setModel(DbUtils.resultSetToTableModel(rs));
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
-        } 
-    }//GEN-LAST:event_btnAtualizaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddProd;
     private javax.swing.JButton btnAltEnc;
     private javax.swing.JButton btnApagarEnc;
-    private javax.swing.JButton btnAtualiza;
     private javax.swing.JRadioButton btnEntregue;
     private javax.swing.JRadioButton btnPendente;
     private javax.swing.JButton btnPesquisar;

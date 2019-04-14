@@ -49,10 +49,10 @@ public void logar(){
         conexao = ModuloConexao.conector();
         //System.out.println(conexao);
         if(conexao != null){
-            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/multiscrap/icones/bancoOk.png")));
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/multiscrap/icones/1.png")));
         }
         else{
-            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/multiscrap/icones/bancoOff.png")));
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/multiscrap/icones/2.png")));
         }
     }
 
@@ -87,7 +87,7 @@ public void logar(){
             }
         });
 
-        lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/multiscrap/icones/bancoOk.png"))); // NOI18N
+        lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/multiscrap/icones/1.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

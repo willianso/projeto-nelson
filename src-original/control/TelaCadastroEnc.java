@@ -22,15 +22,6 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
     ResultSet rs = null;
     
     private String situacao;
-    double valorTotal;
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
     
     
     
@@ -59,18 +50,12 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
     private void setar_campos(){
         int setar = tblClientes.getSelectedRow();
         txtID.setText(tblClientes.getModel().getValueAt(setar,0).toString());   
-        String sql = "insert into encomendas (valor,situacao,id) values (?,'Não entregue',?)";
-        String sql2 = "select max(numero) as max_numero from encomendas";
+        String sql = "insert into encomendas (valor,id) values (?,?)";
         try{
             pst = conexao.prepareStatement(sql);
             pst.setString(1,txtTotal.getText().replace(",","."));
             pst.setString(2,txtID.getText());            
-            pst.executeUpdate();  
-            pst = conexao.prepareStatement(sql2);
-            rs = pst.executeQuery();
-            if(rs.next()){
-                txtNumero.setText(rs.getString("max_numero"));
-            }
+            int adicionado = pst.executeUpdate();            
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,e);            
@@ -78,13 +63,14 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
     }
         
     private void emitir(){        
-        String sql = "update encomendas set data_enc=?, descricao=?, valor=? where numero=?";
+        String sql = "update encomendas set data_enc=?, descricao=?, data_entrega=?, valor=?, situacao=? where numero=?";
         try{
             pst = conexao.prepareStatement(sql);
             pst.setString(1,txtDataCadastro.getText());
             pst.setString(2,EditDescricao.getText());
-            pst.setString(3,txtTotal.getText().replace(",","."));
-            pst.setString(4,txtNumero.getText());
+            pst.setString(4,txtTotal.getText().replace(",","."));
+            pst.setString(5,"Não entregue");
+            pst.setString(6,txtNumero.getText());
             
             int adicionado = pst.executeUpdate();
             if(adicionado > 0){
@@ -116,7 +102,24 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
         catch(Exception e){
             JOptionPane.showMessageDialog(null,e);
         }
-    }  
+    }
+    
+    private void atualiza_numero(){
+        String sql = "select max(numero) as codigo from itens_venda";
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                txtNumero.setText(rs.getString("codigo"));
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e); 
+        }
+    }
+    
+    
+    
     
 
     /**
@@ -133,12 +136,6 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
         txtDataCadastro = new javax.swing.JTextField();
-        try{ 
-            javax.swing.text.MaskFormatter tel= new javax.swing.text.MaskFormatter("##/##/####");
-            txtDataCadastro = new javax.swing.JFormattedTextField(tel);
-        }
-        catch (Exception e){
-        }
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         txtPesquisa = new javax.swing.JTextField();
@@ -166,7 +163,7 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Número");
 
-        txtNumero.setEnabled(false);
+        txtNumero.setEditable(false);
 
         jLabel2.setText("Data de cadastro");
 
@@ -175,11 +172,15 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(12, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                     .addComponent(txtDataCadastro))
@@ -267,7 +268,7 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
 
         jScrollPane4.setViewportView(EditDescricao);
 
-        btnAdicionar.setText("imagem");
+        btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/multiscrap/icones/salve.png"))); // NOI18N
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarActionPerformed(evt);
@@ -345,8 +346,8 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel9)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(33, 33, 33)
+                                .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnProd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -367,19 +368,17 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProd)
                     .addComponent(btnAtualizar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)))
-                    .addComponent(btnAdicionar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(70, 70, 70))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAdicionar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)))
+                .addGap(36, 36, 36))
         );
 
         setBounds(0, 0, 1079, 688);
@@ -402,8 +401,19 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdActionPerformed
+        
+        String sql = "select max(numero) as max_numero from encomendas";
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                txtNumero.setText(rs.getString("max_numero"));
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e); 
+        }
        TelaEscolha escolha = new TelaEscolha();
-       escolha.setNumeroEnc(txtNumero.getText());
        escolha.setVisible(true);        
     }//GEN-LAST:event_btnProdActionPerformed
 
@@ -417,6 +427,7 @@ public class TelaCadastroEnc extends javax.swing.JInternalFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         soma();
+        atualiza_numero();
         String sql = "select produto as Produto, quantidade as Quantidade, total_item as Total from itens_venda where numero=?";
         try{
             pst = conexao.prepareStatement(sql);

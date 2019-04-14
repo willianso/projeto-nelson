@@ -81,7 +81,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 748, Short.MAX_VALUE)
+            .addGap(0, 750, Short.MAX_VALUE)
         );
 
         lblData.setFont(new java.awt.Font("Segoe Script", 2, 24)); // NOI18N
@@ -152,7 +152,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuUsers.setText("Usuários");
 
         MenuUsersAlt.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_MASK));
-        MenuUsersAlt.setText("Gerenciar usuários");
+        MenuUsersAlt.setText("Alterar/Adicionar/Excluir");
         MenuUsersAlt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuUsersAltActionPerformed(evt);
@@ -165,7 +165,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuProdutos.setText("Produtos");
 
         MenuCadProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        MenuCadProdutos.setText("Gerenciar produtos");
+        MenuCadProdutos.setText("Cadastro/Alteração");
         MenuCadProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuCadProdutosActionPerformed(evt);
@@ -208,7 +208,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Desktop)
             .addGroup(layout.createSequentialGroup()
-                .addGap(170, 170, 170)
+                .addGap(201, 201, 201)
                 .addComponent(lblData)
                 .addGap(72, 72, 72)
                 .addComponent(jLabel3)
